@@ -168,7 +168,7 @@ The processing pipeline is executed in **5 distinct sequential stages**:
 
 The pipeline is implemented using Python's core data science tools (`pandas`, `numpy`, `scikit-learn`)[cite: 1]:
 
-```python
+python
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -254,3 +254,85 @@ def execute_logistics_pipeline(raw_csv_path: str) -> pd.DataFrame:
 
 if __name__ == "__main__":
     print("Pipeline executed successfully. Processed dataset ready for modeling.")
+
+
+Task: Week 3 – Advanced Data Analysis and Visualization in Logistics
+
+Week 3 – Advanced Data Analysis and Visualization in Logistics
+
+An end-to-end Python-based data analysis project for evaluating supply chain key performance indicators (KPIs), analyzing transportation cost drivers, assessing SLA delay risks, and synthesizing exploratory data visualizations.
+
+---
+
+Project Overview
+
+This project simulates and analyzes a multi-variable logistics dataset (5,000 order records) to identify operational bottlenecks across different modal channels, warehouse origin hubs, and carrier tiers. 
+
+Key Questions Addressed
+1. Cost Drivers: How do transit distance, shipment volume, and modal choices influence overall freight costs?
+2. SLA Delay Risks: What transit time thresholds significantly increase the probability of late deliveries?
+3. Hub Efficiency: Which warehouse origins show unexplained freight cost variance or performance anomalies?
+4. Carrier Performance: How strongly does carrier rating correlate with mitigating delivery delay risks?
+
+---
+
+Dataset Schema
+
+The script generates synthetic logistics data with realistic mathematical relationships:
+
+| Variable Name | Data Type | Domain Context | Unit / Range |
+| :--- | :--- | :--- | :--- |
+| shipment_id | String | Unique tracking code | Identifier (e.g., SHP-10000) |
+| transit_time_hours | Float | Elapsed time from dispatch to delivery | Hours |
+| freight_cost_usd | Float | Total freight charge | USD ($) |
+| distance_km | Float | Distance between origin and destination | Kilometers (KM) |
+| shipment_volume_m3 | Float | Freight cubic size | Cubic Meters (m³) |
+| carrier_rating | Float | Provider quality rating | Score (1.0 – 5.0) |
+| transport_mode | Categorical | Channel (Road, Air, Rail, Sea) | Category |
+| warehouse_origin | Categorical | Hub location (North, South, East, West) | Category |
+| late_delivery_flag | Binary | SLA breach indicator | Flag (0 = On-Time, 1 = Late) |
+
+---
+
+Visualizations Generated
+
+The script (logistics_advanced_analysis.py) creates a 2x2 grid of visualizations saved to logistics_analysis_charts.png:
+
+* Scatter Plot: Freight Cost vs. Distance colored by Transport Mode to highlight pricing slopes across modes.
+* Histogram / KDE: Transit Time distribution overlaid with SLA late delivery risk flags.
+* Box Plot: Freight Cost distribution grouped by Warehouse Origin to identify facility cost anomalies.
+* Heatmap: Correlation matrix across all continuous operational metrics.
+
+---
+
+Installation & Setup
+
+Prerequisites
+* Python 3.8+
+* Required libraries: numpy, pandas, matplotlib, seaborn
+
+Environment Setup
+git clone https://github.com/your-username/logistics-operational-analysis.git
+cd logistics-operational-analysis
+pip install numpy pandas matplotlib seaborn python-docx
+
+---
+
+Usage
+
+Run the primary Python script to perform statistical summary calculations and generate visualization plots:
+
+python logistics_advanced_analysis.py
+
+Script Execution Flow
+1. simulate_logistics_dataset(): Generates 5,000 shipment records with synthetic cost/speed distributions.
+2. run_eda_statistics(): Computes central tendencies (mean, median), dispersion (std dev), skewness, and category proportions.
+3. plot_logistics_insights(): Builds and exports logistics_analysis_charts.png.
+
+---
+
+Key Strategic Recommendations
+
+* Modal Optimization: Shift short-to-medium distance (< 600 KM) air freight shipments to road or express rail options to reduce base transport costs without violating SLA thresholds.
+* East Warehouse Process Audit: Investigate carrier scheduling and rate volatility at the East Warehouse hub due to elevated median costs and outlier density.
+* Carrier Performance Tiering: Enforce SLA penalty structures tying carrier rating scores to contract renewals to lower late delivery flags.
